@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Collections;
+
 import ua.org.horishniy.rpncalculator.R;
 import ua.org.horishniy.rpncalculator.utils.FiloStack;
 
@@ -19,7 +21,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private static final int MINUS = 1;
     private static final int MULTIPLY = 2;
     private static final int DIVISION = 3;
-    private static final int REVERCE = 4;
+    private static final int REVERSE = 4;
     private static final int SIGN_CHANGE = 5;
     private static final int ENTER = 6;
     private static final int CLEAR = 7;
@@ -131,7 +133,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 math(DIVISION);
                 break;
             case R.id.button_reverse:
-                function(REVERCE);
+                function(REVERSE);
                 break;
             case R.id.button_sign_change:
                 function(SIGN_CHANGE);
@@ -145,6 +147,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
 
         Log.d(LOG, "Buffer: " + buffer);
+        Log.d(LOG, stack.toString());
     }
 
     private void addDigit(String d) {
@@ -186,24 +189,47 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private void function(int id) {
         switch (id) {
             case ENTER:
-                if (!buffer.toString().equals("")) {
-                    stack.push(buffer.toString());
-                }
-                clear();
+                addToStack();
                 break;
             case CLEAR:
-                clear();
-                stack.clear();
+                if (!buffer.toString().equals("")) {
+                    clear();
+                } else {
+                    stack.clear();
+                }
                 display(getString(R.string.display_default));
+                break;
+            case SIGN_CHANGE:
+                if (buffer.toString().equals("")) {
+                    if (stack.size() >= 1) {
+                        buffer.append(stack.peek());
+                        stack.pop();
+                    }
+                }
+                if (!buffer.toString().equals("")) {
+                    if (buffer.toString().substring(0, 1).equals("-")){
+                        buffer.deleteCharAt(0);
+                    } else {
+                        buffer.insert(0, "-");
+                    }
+                    display(buffer.toString());
+                    addToStack();
+                }
+                break;
+            case REVERSE:
+                addToStack();
+                //Log.d(LOG, stack.toString());
+                if (stack.size() >= 2) {
+                    Collections.swap(stack, 0, stack.size() - 1);
+                    //Log.d(LOG, stack.toString());
+                    display(stack.get(stack.size() - 1));
+                }
                 break;
         }
     }
 
     private void math(int id) {
-        if (!buffer.toString().equals("")) {
-            stack.push(buffer.toString());
-            coma = false;
-        }
+        addToStack();
         if (stack.size() >= 2) {
             double b = Double.parseDouble(stack.peek());
             stack.pop();
@@ -230,13 +256,20 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             }
             if (!error) {
                 Log.d(LOG, "rez = " + a);
-                stack.push("" + a);
-                display("" + a);
+                stack.push(Double.toString(a));
+                display(Double.toString(a));
             } else {
                 display(getString(R.string.display_error));
             }
         } else {
             display(getString(R.string.display_error));
+        }
+    }
+
+    private void addToStack() {
+        if (!buffer.toString().equals("")) {
+            stack.push(buffer.toString());
+            clear();
         }
         clear();
     }
