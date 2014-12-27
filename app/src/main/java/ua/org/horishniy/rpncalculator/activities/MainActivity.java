@@ -30,6 +30,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private StringBuilder buffer;
     private boolean coma;
     private TextView viewDisplay;
+    private TextView viewDisplayStack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         coma = false;
 
         viewDisplay = (TextView) findViewById(R.id.text_view_display);
+        viewDisplayStack = (TextView) findViewById(R.id.text_view_display_stack);
 
         //Add buttons
         Button button0 = (Button) findViewById(R.id.button_0);
@@ -190,6 +192,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         switch (id) {
             case ENTER:
                 addToStack();
+                display(getString(R.string.display_default));
                 break;
             case CLEAR:
                 if (!buffer.toString().equals("")) {
@@ -212,8 +215,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     } else {
                         buffer.insert(0, "-");
                     }
-                    display(buffer.toString());
                     addToStack();
+                    display(stack.get(stack.size() - 1));
                 }
                 break;
             case REVERSE:
@@ -222,8 +225,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 if (stack.size() >= 2) {
                     Collections.swap(stack, 0, stack.size() - 1);
                     //Log.d(LOG, stack.toString());
-                    display(stack.get(stack.size() - 1));
                 }
+                display(stack.get(stack.size() - 1));
                 break;
         }
     }
@@ -281,5 +284,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private void display(String massage) {
         viewDisplay.setText(massage);
+        viewDisplayStack.setText(stack.toString());
     }
 }
