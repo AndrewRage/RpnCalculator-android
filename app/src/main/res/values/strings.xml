@@ -4,6 +4,7 @@
     <string name="app_name">RPN Calculator</string>
 
     <string name="display_default">0</string>
+    <string name="display_default_stack">[]</string>
     <string name="display_error">error</string>
 
     <string name="button_0">0</string>

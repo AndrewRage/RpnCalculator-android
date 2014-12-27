@@ -11,23 +11,35 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="3">
         <TextView
             android:id="@+id/text_view_display"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:text="@string/display_default"
             android:singleLine="true"
-            android:gravity="end|fill_vertical" />
+            android:gravity="end|fill_vertical"
+            android:textSize="24sp" />
+        <TextView
+            android:id="@+id/text_view_display_stack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="false"
+            android:gravity="fill_vertical"
+            android:maxLines="4"
+            android:text="@string/display_default_stack"
+            android:ellipsize="end" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="2">
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -62,9 +74,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="2">
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -99,9 +111,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="2">
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -136,9 +148,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="2">
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
