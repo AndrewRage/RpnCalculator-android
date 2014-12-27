@@ -21,9 +21,9 @@
     <string name="button_minus">-</string>
     <string name="button_multiply">×</string>
     <string name="button_division">÷</string>
-    <string name="button_reverse">---</string>
-    <string name="button_sign_change">/-/</string>
-    <string name="button_enter">B</string>
+    <string name="button_reverse">⇄</string>
+    <string name="button_sign_change">±</string>
+    <string name="button_enter">B↑</string>
     <string name="button_clear">C</string>
 
 </resources>

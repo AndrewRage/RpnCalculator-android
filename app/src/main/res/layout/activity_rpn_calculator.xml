@@ -118,7 +118,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/button_3"
-            android:text="@string/button_4"/>
+            android:text="@string/button_3"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -154,7 +154,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/sign_change"
+            android:id="@+id/button_sign_change"
             android:text="@string/button_sign_change"/>
         <Button
             android:layout_width="0dp"
