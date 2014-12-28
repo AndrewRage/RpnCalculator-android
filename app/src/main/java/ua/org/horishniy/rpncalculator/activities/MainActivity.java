@@ -238,7 +238,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             stack.pop();
             double a = stack.peek();
             stack.pop();
-            boolean error = false;
             switch (id) {
                 case PLUS:
                     a = a + b;
@@ -250,20 +249,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     a = a * b;
                     break;
                 case DIVISION:
-                    if (b != 0) {
-                        a = a / b;
-                    } else {
-                        error = true;
-                    }
+                    a = a / b;
                     break;
             }
-            if (!error) {
-                Log.d(LOG, "rez = " + a);
-                stack.push(a);
-                display(Double.toString(a));
-            } else {
-                display(getString(R.string.display_error));
-            }
+            Log.d(LOG, "rez = " + a);
+            stack.push(a);
+            display(Double.toString(a));
         } else {
             display(getString(R.string.display_error));
         }
