@@ -171,6 +171,16 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         Log.d(LOG, stack.toString());
     }
 
+    /**
+     * Read digit symbol
+     *
+     * Check if the buffer is not zero.
+     * If so, that add zero to the buffer.
+     *
+     * Remove zero if it is in front of the whole part of the number.
+     *
+     * Check comma in the numeric
+     * */
     private void addDigit(String d) {
         switch (d) {
             case "0":
@@ -207,6 +217,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         display(buffer.toString());
     }
 
+    /**
+     * Read not mathematics function
+     *
+     * Enter - add buffer to the stack and clear display
+     * Clear - on one press clear buffer, second press clear stack
+     * Sign change - change last numeric sign on the buffer or on the stack
+     * Revers - interchange first and the current value on the stack
+     * */
     private void function(int id) {
         switch (id) {
             case ENTER:
@@ -250,6 +268,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Mathematics function
+     *
+     * Check whether there is in the stack at least two values.
+     * If not - show error
+     *
+     * Peek and pop two values from the stack
+     *
+     * Do math function
+     *
+     * Add result to the stack
+     * Display result
+     * */
     private void math(int id) {
         addToStack();
         if (stack.size() >= 2) {
@@ -279,6 +310,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Method add not value from buffer to the stack
+     * Then clear buffer
+     * */
     private void addToStack() {
         if (!buffer.toString().equals("")) {
             stack.push(Double.parseDouble(buffer.toString()));
@@ -287,11 +322,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         clear();
     }
 
+    /**
+     * Clear buffer and comma
+     * */
     private void clear(){
         buffer.setLength(0);
         coma = false;
     }
 
+    /**
+     * Display buffer and stack
+     *
+     * If the buffer is clear - display default value from string
+     * */
     private void display(String massage) {
         if (massage.equals("")) {
             viewDisplay.setText(getString(R.string.display_default));
