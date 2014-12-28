@@ -17,6 +17,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private static final String LOG = "RageLog: ";
 
+    private static final String SAVE_BUFFER = "save_buffer";
+    private static final String SAVE_COMA = "save_coma";
+    private static final String SAVE_STACK = "save_stack";
+
     private static final int PLUS = 0;
     private static final int MINUS = 1;
     private static final int MULTIPLY = 2;
@@ -37,12 +41,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rpn_calculator);
 
-        stack = new FiloStack<>();
-        buffer = new StringBuilder();
-        coma = false;
-
         viewDisplay = (TextView) findViewById(R.id.text_view_display);
         viewDisplayStack = (TextView) findViewById(R.id.text_view_display_stack);
+
+        buffer = new StringBuilder();
+        if (savedInstanceState != null) {
+            stack = (FiloStack) savedInstanceState.getSerializable(SAVE_STACK);
+            coma = savedInstanceState.getBoolean(SAVE_COMA);
+            buffer.append(savedInstanceState.getString(SAVE_BUFFER));
+            display(buffer.toString());
+        } else {
+            stack = new FiloStack<>();
+            coma = false;
+        }
 
         //Add buttons
         Button button0 = (Button) findViewById(R.id.button_0);
@@ -83,6 +94,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         buttonSignChange.setOnClickListener(this);
         buttonEnter.setOnClickListener(this);
         buttonClear.setOnClickListener(this);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(SAVE_BUFFER, buffer.toString());
+        outState.putBoolean(SAVE_COMA, coma);
+        outState.putSerializable(SAVE_STACK, stack);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -274,7 +293,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     private void display(String massage) {
-        viewDisplay.setText(massage);
+        if (massage.equals("")) {
+            viewDisplay.setText(getString(R.string.display_default));
+        } else {
+            viewDisplay.setText(massage);
+        }
         viewDisplayStack.setText(stack.toString());
     }
 }
