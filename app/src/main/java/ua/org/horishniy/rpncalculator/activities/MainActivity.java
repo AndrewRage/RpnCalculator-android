@@ -26,7 +26,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private static final int ENTER = 6;
     private static final int CLEAR = 7;
 
-    private FiloStack<String> stack;
+    private FiloStack<Double> stack;
     private StringBuilder buffer;
     private boolean coma;
     private TextView viewDisplay;
@@ -216,7 +216,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         buffer.insert(0, "-");
                     }
                     addToStack();
-                    display(stack.get(stack.size() - 1));
+                    display(String.valueOf(stack.get(stack.size() - 1)));
                 }
                 break;
             case REVERSE:
@@ -226,7 +226,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     Collections.swap(stack, 0, stack.size() - 1);
                     //Log.d(LOG, stack.toString());
                 }
-                display(stack.get(stack.size() - 1));
+                display(String.valueOf(stack.get(stack.size() - 1)));
                 break;
         }
     }
@@ -234,9 +234,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private void math(int id) {
         addToStack();
         if (stack.size() >= 2) {
-            double b = Double.parseDouble(stack.peek());
+            double b = stack.peek();
             stack.pop();
-            double a = Double.parseDouble(stack.peek());
+            double a = stack.peek();
             stack.pop();
             boolean error = false;
             switch (id) {
@@ -259,7 +259,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             }
             if (!error) {
                 Log.d(LOG, "rez = " + a);
-                stack.push(Double.toString(a));
+                stack.push(a);
                 display(Double.toString(a));
             } else {
                 display(getString(R.string.display_error));
@@ -271,7 +271,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private void addToStack() {
         if (!buffer.toString().equals("")) {
-            stack.push(buffer.toString());
+            stack.push(Double.parseDouble(buffer.toString()));
             clear();
         }
         clear();
